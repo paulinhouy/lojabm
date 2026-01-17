@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Produtos do Ceará</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🌵 Produtos Típicos do Ceará</h1>
+  <p>Artesanato e sabores regionais</p>
+</header>
+
+<main class="container">
+  <section class="produtos" id="listaProdutos"></section>
+
+  <section class="carrinho">
+    <h2>🛒 Carrinho</h2>
+
+    <input id="nomeCliente" placeholder="Seu nome">
+    <input id="enderecoCliente" placeholder="Endereço de entrega">
+
+    <ul id="itensCarrinho"></ul>
+    <h3>Total: R$ <span id="total">0.00</span></h3>
+
+    <button class="finalizar" onclick="finalizarPedido()">
+      Finalizar no WhatsApp
+    </button>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f1ea;
+  color: #3e2c1c;
+}
+
+header {
+  background: #6b4f2a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.produto {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.produto img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #2f5d3d;
+  color: white;
+}
+
+.finalizar {
+  background: #25d366;
+  font-size: 16px;
+}
+
+.carrinho input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+.form-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+table button {
+  margin: 2px;
+}

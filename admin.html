@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>📦 Painel de Estoque</h1>
+</header>
+
+<div class="container">
+
+  <h2>➕ Adicionar Novo Produto</h2>
+  <div class="form-admin">
+    <input type="text" id="novoNome" placeholder="Nome do produto">
+    <input type="number" id="novoPreco" placeholder="Preço">
+    <input type="number" id="novoEstoque" placeholder="Estoque inicial">
+    <button onclick="criarProduto()">Adicionar Produto</button>
+  </div>
+
+  <h2>📋 Produtos</h2>
+  <table>
+    <tr>
+      <th>Produto</th>
+      <th>Estoque</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+    <tbody id="adminProdutos"></tbody>
+  </table>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
