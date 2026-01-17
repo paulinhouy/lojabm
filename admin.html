@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Administrativo</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="header-flex">
-  <h1>📦 Painel de Estoque</h1>
-
-  <a href="index.html" class="header-btn">
-    🏠 Voltar para Loja
-  </a>
+<header>
+  <div class="header-flex">
+    <h1>📦 Painel de Estoque</h1>
+    <a href="index.html" class="header-btn">🏠 Voltar para Loja</a>
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <h2>➕ Adicionar Novo Produto</h2>
-  <div class="form-admin">
-    <input type="text" id="novoNome" placeholder="Nome do produto">
-    <input type="number" id="novoPreco" placeholder="Preço">
-    <input type="number" id="novoEstoque" placeholder="Estoque inicial">
-    <button onclick="criarProduto()">Adicionar Produto</button>
-  </div>
+  <section class="admin-section">
+    <h2>➕ Adicionar Produto</h2>
 
-  <h2>📋 Produtos</h2>
+    <div class="form-admin">
+      <input type="text" id="novoNome" placeholder="Nome do produto">
+      <input type="number" id="novoPreco" placeholder="Preço">
+      <input type="number" id="novoEstoque" placeholder="Estoque inicial">
+      <button onclick="criarProduto()">Adicionar</button>
+    </div>
+  </section>
 
-  <!-- DESKTOP -->
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Estoque</th>
-        <th>Preço</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="adminProdutos"></tbody>
-  </table>
+  <section class="admin-section">
+    <h2>📋 Produtos Cadastrados</h2>
 
-  <!-- MOBILE -->
-  <div class="admin-cards" id="adminCards"></div>
+    <!-- DESKTOP -->
+    <div class="admin-desktop">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Estoque</th>
+            <th>Preço</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="adminProdutos"></tbody>
+      </table>
+    </div>
 
-</div>
+    <!-- MOBILE -->
+    <div class="admin-mobile" id="adminCards"></div>
+  </section>
+
+</main>
 
 <script src="script.js"></script>
 </body>

@@ -9,32 +9,40 @@
 <body>
 
 <header class="header-flex">
-  <div>
-    <h1>🌵 Produtos Típicos do Ceará</h1>
+
+  <!-- TÍTULO -->
+  <div class="header-title">
+    <h1>Produtos Típicos do Ceará</h1>
     <p>Artesanato e sabores regionais</p>
   </div>
 
+  <!-- PAINEL -->
   <a href="admin.html" class="header-btn">
     📦 Painel de Estoque
   </a>
+
+  <!-- CARRINHO (AGORA À DIREITA) -->
+  <div class="cart-wrapper">
+    <button class="cart-btn" onclick="toggleCarrinho()">
+      🛒 <span id="cartCount">0</span>
+    </button>
+
+    <div class="cart-dropdown" id="cartDropdown">
+      <h3>Seu Carrinho</h3>
+      <div id="cartItems"></div>
+      <p class="cart-total">
+        Total: R$ <span id="cartTotal">0.00</span>
+      </p>
+      <button class="finalizar" onclick="finalizarPedido()">
+        Finalizar no WhatsApp
+      </button>
+    </div>
+  </div>
+
 </header>
 
 <main class="container">
   <section class="produtos" id="listaProdutos"></section>
-
-  <section class="carrinho">
-    <h2>🛒 Carrinho</h2>
-
-    <input id="nomeCliente" placeholder="Seu nome">
-    <input id="enderecoCliente" placeholder="Endereço de entrega">
-
-    <ul id="itensCarrinho"></ul>
-    <h3>Total: R$ <span id="total">0.00</span></h3>
-
-    <button class="finalizar" onclick="finalizarPedido()">
-      Finalizar no WhatsApp
-    </button>
-  </section>
 </main>
 
 <script src="script.js"></script>

@@ -10,32 +10,83 @@ body {
   color: #3e2c1c;
 }
 
+/* ================= HEADER (USADO EM AMBOS) ================= */
 header {
   background: #6b4f2a;
   color: white;
-  padding: 20px;
+  padding: 15px 20px;
 }
 
-/* ================= HEADER COM BOTÃO ================= */
 .header-flex {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 15px;
 }
 
-.header-flex h1 {
-  margin: 0;
+/* ===== INDEX ===== */
+.header-title {
+  flex: 1;
+  text-align: center;
 }
 
 .header-btn {
   background: #2f5d3d;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 14px;
   border-radius: 8px;
   text-decoration: none;
   font-size: 14px;
   white-space: nowrap;
+}
+
+/* ================= CARRINHO HEADER (INDEX) ================= */
+.cart-wrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.cart-btn {
+  background: #2f5d3d;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cart-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 260px;
+  background: white;
+  color: #3e2c1c;
+  border-radius: 10px;
+  padding: 15px;
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.cart-item {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.cart-total {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.finalizar {
+  background: #25d366;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
 }
 
 /* ================= CONTAINER ================= */
@@ -45,7 +96,7 @@ header {
   padding: 20px;
 }
 
-/* ================= LOJA ================= */
+/* ================= PRODUTOS (INDEX) ================= */
 .produtos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -58,39 +109,27 @@ header {
   border-radius: 10px;
 }
 
-.produto h3 {
-  margin-top: 0;
+.produto input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
 
-button {
-  padding: 12px;
-  border: none;
+.produto button {
+  width: 100%;
+  padding: 10px;
   border-radius: 6px;
+  border: none;
   background: #2f5d3d;
   color: white;
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
+/* ================================================================= */
+/* ========================= ADMIN.HTML ============================= */
+/* ================================================================= */
 
-.finalizar {
-  background: #25d366;
-  font-size: 16px;
-}
-
-input {
-  padding: 10px;
-  width: 100%;
-}
-
-/* ================= CARRINHO ================= */
-.carrinho input {
-  margin-bottom: 10px;
-}
-
-/* ================= ADMIN FORM ================= */
+/* ===== FORM ADMIN ===== */
 .form-admin {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -98,7 +137,21 @@ input {
   margin-bottom: 30px;
 }
 
-/* ================= ADMIN TABELA (DESKTOP) ================= */
+.form-admin input,
+.form-admin button {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-admin button {
+  background: #2f5d3d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== ADMIN DESKTOP (TABELA) ===== */
 .admin-table {
   width: 100%;
   background: white;
@@ -110,19 +163,26 @@ input {
 .admin-table th,
 .admin-table td {
   padding: 12px;
-  text-align: center;
   border-bottom: 1px solid #ddd;
+  text-align: center;
 }
 
 .admin-table input {
   width: 80px;
+  padding: 6px;
 }
 
 .admin-table button {
   margin: 2px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #2f5d3d;
+  color: white;
+  cursor: pointer;
 }
 
-/* ================= ADMIN CARDS (MOBILE) ================= */
+/* ===== ADMIN MOBILE (CARDS) ===== */
 .admin-cards {
   display: none;
 }
@@ -132,7 +192,7 @@ input {
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 .admin-card h3 {
@@ -147,7 +207,10 @@ input {
 
 .admin-card input {
   width: 100%;
+  padding: 10px;
   margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .admin-card .acoes {
@@ -158,40 +221,47 @@ input {
 
 .admin-card .acoes button {
   flex: 1;
-  font-size: 14px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #2f5d3d;
+  color: white;
 }
 
 /* ================= RESPONSIVO ================= */
 @media (max-width: 768px) {
 
-  /* Header continua lado a lado */
-  /* ===== HEADER COM BOTÕES ===== */
-.header-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.header-btn {
-  background: #2f5d3d;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
+  /* INDEX HEADER */
   .header-flex {
-    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .header-title {
+    width: 100%;
+    order: 1;
     text-align: center;
   }
 
   .header-btn {
     width: 100%;
+    order: 2;
     text-align: center;
+  }
+
+  .cart-wrapper {
+    order: 3;
+  }
+
+  /* ADMIN */
+  .admin-table {
+    display: none;
+  }
+
+  .admin-cards {
+    display: block;
+  }
+
+  .form-admin {
+    grid-template-columns: 1fr;
   }
 }
