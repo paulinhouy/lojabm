@@ -1,5 +1,4 @@
-const whatsappVendedor = '5585999999999';
-const emailVendedor = 'vendedor@email.com';
+const whatsappVendedor = '5585991822601';
 
 let produtos = JSON.parse(localStorage.getItem('produtos')) || [
   { id: 1, nome: 'Cesto de Palha', preco: 30, estoque: 5 },
@@ -8,31 +7,12 @@ let produtos = JSON.parse(localStorage.getItem('produtos')) || [
 ];
 
 let carrinho = [];
-let historicoPedidos = JSON.parse(localStorage.getItem('historicoPedidos')) || [];
-let notificacoes = JSON.parse(localStorage.getItem('notificacoes')) || [];
 
-// ================= STORAGE =================
 function salvarProdutos() {
   localStorage.setItem('produtos', JSON.stringify(produtos));
 }
 
-// ================= NOTIFICAÇÃO =================
-function registrarEvento(tipo, detalhe) {
-  const evento = {
-    tipo,
-    detalhe,
-    data: new Date().toLocaleString()
-  };
-
-  notificacoes.push(evento);
-  localStorage.setItem('notificacoes', JSON.stringify(notificacoes));
-
-  window.open(
-    `mailto:${emailVendedor}?subject=Notificação Loja&body=${tipo}: ${detalhe}`
-  );
-}
-
-// ================= LOJA =================
+/* LOJA */
 function renderProdutos() {
   const lista = document.getElementById('listaProdutos');
   if (!lista) return;
@@ -58,12 +38,6 @@ function addCarrinho(id) {
     p.estoque--;
     carrinho.push(p);
     salvarProdutos();
-
-    registrarEvento(
-      'SAÍDA DE ESTOQUE',
-      `${p.nome} (-1 unidade)`
-    );
-
     renderCarrinho();
     renderProdutos();
   }
@@ -75,57 +49,36 @@ function renderCarrinho() {
 
   lista.innerHTML = '';
   let total = 0;
-
   carrinho.forEach(i => {
     lista.innerHTML += `<li>${i.nome} - R$ ${i.preco}</li>`;
     total += i.preco;
   });
-
   document.getElementById('total').innerText = total.toFixed(2);
 }
 
 function finalizarPedido() {
-  const nome = document.getElementById('nomeCliente').value;
-  const endereco = document.getElementById('enderecoCliente').value;
-
-  let total = carrinho.reduce((s, i) => s + i.preco, 0);
-
-  historicoPedidos.push({
-    cliente: nome,
-    endereco,
-    itens: [...carrinho],
-    total,
-    data: new Date().toLocaleString()
-  });
-
-  localStorage.setItem('historicoPedidos', JSON.stringify(historicoPedidos));
-
-  registrarEvento(
-    'NOVO PEDIDO',
-    `Pedido de ${nome} - R$ ${total}`
-  );
-
-  let msg = `Pedido:%0ACliente: ${nome}%0AEndereço: ${endereco}%0A%0A`;
+  let msg = 'Pedido:%0A';
   carrinho.forEach(i => msg += `• ${i.nome} - R$ ${i.preco}%0A`);
-  msg += `%0ATotal: R$ ${total}`;
-
   window.open(`https://wa.me/${whatsappVendedor}?text=${msg}`);
   carrinho = [];
   renderCarrinho();
 }
 
-// ================= ADMIN =================
+/* ADMIN */
 function renderAdmin() {
   const tabela = document.getElementById('adminProdutos');
-  if (!tabela) return;
+  const cards = document.getElementById('adminCards');
+  if (!tabela || !cards) return;
 
   tabela.innerHTML = '';
+  cards.innerHTML = '';
+
   produtos.forEach(p => {
     tabela.innerHTML += `
       <tr>
         <td>${p.nome}</td>
-        <td><input type="number" id="estoque-${p.id}" value="${p.estoque}"></td>
-        <td><input type="number" id="preco-${p.id}" value="${p.preco}"></td>
+        <td><input id="estoque-${p.id}" type="number" value="${p.estoque}"></td>
+        <td><input id="preco-${p.id}" type="number" value="${p.preco}"></td>
         <td>
           <button onclick="atualizarEstoque(${p.id})">✔</button>
           <button onclick="atualizarPreco(${p.id})">💲</button>
@@ -133,89 +86,70 @@ function renderAdmin() {
         </td>
       </tr>
     `;
+
+    cards.innerHTML += `
+      <div class="admin-card">
+        <h3>${p.nome}</h3>
+
+        <label>Estoque</label>
+        <input id="estoque-m-${p.id}" type="number" value="${p.estoque}">
+
+        <label>Preço</label>
+        <input id="preco-m-${p.id}" type="number" value="${p.preco}">
+
+        <div class="acoes">
+          <button onclick="
+            document.getElementById('estoque-${p.id}').value =
+            document.getElementById('estoque-m-${p.id}').value;
+            atualizarEstoque(${p.id});
+          ">✔</button>
+
+          <button onclick="
+            document.getElementById('preco-${p.id}').value =
+            document.getElementById('preco-m-${p.id}').value;
+            atualizarPreco(${p.id});
+          ">💲</button>
+
+          <button onclick="removerProduto(${p.id})">🗑</button>
+        </div>
+      </div>
+    `;
   });
 }
 
 function atualizarEstoque(id) {
-  const produto = produtos.find(p => p.id === id);
-  const valor = Number(document.getElementById(`estoque-${id}`).value);
-
-  produto.estoque = valor;
+  const p = produtos.find(p => p.id === id);
+  p.estoque = Number(document.getElementById(`estoque-${id}`).value);
   salvarProdutos();
-
-  registrarEvento(
-    'ATUALIZAÇÃO DE ESTOQUE',
-    `${produto.nome}: ${valor} unidades`
-  );
-
   renderProdutos();
 }
 
 function atualizarPreco(id) {
-  const produto = produtos.find(p => p.id === id);
-  const valor = Number(document.getElementById(`preco-${id}`).value);
-
-  produto.preco = valor;
+  const p = produtos.find(p => p.id === id);
+  p.preco = Number(document.getElementById(`preco-${id}`).value);
   salvarProdutos();
-
-  registrarEvento(
-    'ALTERAÇÃO DE PREÇO',
-    `${produto.nome}: R$ ${valor}`
-  );
-
   renderProdutos();
 }
 
 function removerProduto(id) {
-  const produto = produtos.find(p => p.id === id);
-  if (!confirm('Deseja remover este produto?')) return;
-
   produtos = produtos.filter(p => p.id !== id);
   salvarProdutos();
-
-  registrarEvento(
-    'PRODUTO REMOVIDO',
-    produto.nome
-  );
-
   renderAdmin();
   renderProdutos();
 }
 
-// ================= CRIAR PRODUTO =================
 function criarProduto() {
-  const nome = document.getElementById('novoNome').value;
-  const preco = Number(document.getElementById('novoPreco').value);
-  const estoque = Number(document.getElementById('novoEstoque').value);
-
-  if (!nome || preco <= 0 || estoque < 0) {
-    alert('Preencha corretamente');
-    return;
-  }
-
   produtos.push({
     id: Date.now(),
-    nome,
-    preco,
-    estoque
+    nome: novoNome.value,
+    preco: Number(novoPreco.value),
+    estoque: Number(novoEstoque.value)
   });
-
   salvarProdutos();
-
-  registrarEvento(
-    'NOVO PRODUTO',
-    `${nome} criado`
-  );
-
-  document.getElementById('novoNome').value = '';
-  document.getElementById('novoPreco').value = '';
-  document.getElementById('novoEstoque').value = '';
-
   renderAdmin();
   renderProdutos();
 }
 
-// ================= INIT =================
 renderProdutos();
 renderCarrinho();
 renderAdmin();

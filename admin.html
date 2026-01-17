@@ -8,8 +8,12 @@
 </head>
 <body>
 
-<header>
+<header class="header-flex">
   <h1>📦 Painel de Estoque</h1>
+
+  <a href="index.html" class="header-btn">
+    🏠 Voltar para Loja
+  </a>
 </header>
 
 <div class="container">
@@ -23,15 +27,22 @@
   </div>
 
   <h2>📋 Produtos</h2>
-  <table>
-    <tr>
-      <th>Produto</th>
-      <th>Estoque</th>
-      <th>Preço</th>
-      <th>Ações</th>
-    </tr>
+
+  <!-- DESKTOP -->
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Estoque</th>
+        <th>Preço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
     <tbody id="adminProdutos"></tbody>
   </table>
+
+  <!-- MOBILE -->
+  <div class="admin-cards" id="adminCards"></div>
 
 </div>
 
